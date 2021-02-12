@@ -1210,7 +1210,6 @@
     display: flex;
     justify-content: center;
     background-color: #e8e8e8;
-    height: 24px;
     transition: 0.5s cubic-bezier(0.19, 1, 0.19, 1);
 
     > div {
