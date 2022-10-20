@@ -72,7 +72,7 @@ function addOverflowAddingObserver(elem) {
     
     // Watch page to look out for lightning-overlay-container being added
     observer.observe(
-        elem,
+        elem.shadowRoot,
         { 
             attributes: false,
             childList: true,
