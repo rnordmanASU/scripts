@@ -27,6 +27,7 @@ connectedAppKey = '3MVG9E8TNx7FN9y5IIxhV_Zl8NYeZyybOSRdJJqMbdh.IWEMocqHGBsLFcHlr
 # Rarely need to change
 sfVersion = 'v56.0'
 permissionSetName = 'API_Only_User'
+browserCommand = 'open'
 
 # Global vars that will be handled by code
 apiUserId = None
@@ -152,16 +153,17 @@ def addPermSet():
 
 # Open the browser to log the user out
 def logoutInBrowser():
+    global browserCommand, sfUrl
     url = f'{sfUrl}/secur/logout.jsp'
-    subprocess.run(f"open \"{url}\"", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    subprocess.run(f"{browserCommand} \"{url}\"", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
 # Open the browser so user authorize the connected app
 def authorizeInBrowser():
-    global connectedAppKey
+    global browserCommand, sfUrl, connectedAppKey
     randomState = randomString(10)
     randomNonce = randomString(11)
     url = f'{sfUrl}/services/oauth2/authorize?client_id={connectedAppKey}&redirect_uri=https%3A%2F%2Foauthdebugger.com%2Fdebug&scope=api%20refresh_token%20offline_access%20openid&response_type=code&response_mode=query&state={randomState}&nonce={randomNonce}'
-    subprocess.run(f"open \"{url}\"", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True).stdout
+    subprocess.run(f"{browserCommand} \"{url}\"", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True).stdout
 
 # generate a random string for length l (Not a good random generator - but good enough for this)
 def randomString(l):
